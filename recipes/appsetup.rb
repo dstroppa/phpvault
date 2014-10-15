@@ -26,7 +26,7 @@ node[:deploy].each do |app_name, deploy|
     variables(
       :host =>     (deploy[:database][:host] rescue nil),
       :user =>     (deploy[:database][:username] rescue nil),
-      :password => (chef_vault_item('secrets', 'rds_pwd') rescue nil),
+      :password => (chef_vault_item('rds_secrets', 'rdspwd') rescue nil),
       :db =>       (deploy[:database][:database] rescue nil),
       :table =>    (node[:phpapp][:dbtable] rescue nil)
     )
