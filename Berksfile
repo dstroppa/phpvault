@@ -1,4 +1,5 @@
-source "http://supermarket.getchef.com"
+source "https://supermarket.getchef.com"
+
 metadata
 
 cookbook 'chef-vault'
