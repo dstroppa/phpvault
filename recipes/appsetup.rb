@@ -23,10 +23,13 @@ node[:deploy].each do |app_name, deploy|
       owner "apache"
     end
 
+    rdspwd = chef_vault_item('rds_secrets', 'rdspwd')
+    Chef::Log.info("The decrypted password is '#{rdspwd['password']}' ")
+
     variables(
       :host =>     (deploy[:database][:host] rescue nil),
       :user =>     (deploy[:database][:username] rescue nil),
-      :password => (chef_vault_item('rds_secrets', 'rdspwd') rescue nil),
+      :password => ('#{rdspwd}' rescue nil),
       :db =>       (deploy[:database][:database] rescue nil),
       :table =>    (node[:phpapp][:dbtable] rescue nil)
     )
